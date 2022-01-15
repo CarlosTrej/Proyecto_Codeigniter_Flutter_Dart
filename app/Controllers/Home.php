@@ -2,17 +2,35 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\HTTP\RequestInterface;
+
+
+
 class Home extends BaseController
 {
+  protected $request;
+  public function __construct(RequestInterface $request)
+  {
+    $this->request = $request;
+  }/* constructor */
     public function index()
     {
-        $Datos["Mexico"] = "Peso";
-        $Datos["USA"] = "Dollar";
-        $Datos["Inglaterra"] = "Libra";
-        $Datos["Japon"] = "Yen";
-        $Datos["Rusia"] = "Rublo";
-      /*   print_r($Datos); */
 
-        return view('Home', $Datos);
-    }
+      echo view("templates/head.php");
+      echo view("templates/body.php");
+      echo view("templates/footer.php");
+       
+    }/* index */
+
+    public function Datos(){
+
+      if($this->request->getMethod()=="post"){
+
+        $nombre = $this->request ->getPost("nombre");
+        $noControl = $this->request ->getPost("Nocontrol");
+        echo $nombre . " >>>  " . $noControl;
+
+      }
+
+    }/* Datos */
 }
